@@ -1,4 +1,4 @@
-package com.example.track
+package com.trackoffuture.track
 
 import io.flutter.embedding.android.FlutterActivity
 
