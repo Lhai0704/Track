@@ -1,11 +1,11 @@
-import 'dart:ffi';
-
 /**
  * Created by luhai on 2020/7/9
  * 自定义appbar
  */
 
 import 'package:flutter/material.dart';
+import 'dart:ffi';
+import 'package:track/index/calendar/calendar.dart';
 
 class home_appBar extends StatefulWidget implements PreferredSizeWidget {
   final double contentHeight = kToolbarHeight;
@@ -30,20 +30,19 @@ class _home_appBarState extends State<home_appBar> {
           child: SafeArea(
             top: true,
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Positioned(
-                  left: 0,
+              children: <Widget>[
+                Expanded(
                   child: new Container(
-                    padding: EdgeInsets.only(left: 5.0),
+//                    padding: EdgeInsets.only(left: 5.0),
                     child: IconButton(
                       icon: Icon(Icons.access_alarm),
-                      onPressed: null,
+                      onPressed: () {controller.toggleExpandStatus();},
                     ),
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.only(top: 9.0),
+                Expanded(
                   child: Column(
                     children: [
                       Text('今日计划'),
@@ -51,10 +50,9 @@ class _home_appBarState extends State<home_appBar> {
                     ],
                   ),
                 ),
-                Positioned(
-                  right: 0,
+                Expanded(
                   child: new Container(
-                    padding: EdgeInsets.only(right: 5.0),
+//                    padding: EdgeInsets.only(right: 5.0),
                     child: IconButton(
                       icon: Icon(Icons.access_alarm),
                       onPressed: null,
