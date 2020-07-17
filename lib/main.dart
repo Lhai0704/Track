@@ -5,54 +5,31 @@
 */
 
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
-import 'package:sqflite/sqflite.dart';
-import 'dart:async';
-
-import 'global/BottomBar.dart';
-import 'index/home_appBar.dart';
-import 'index/calendar/calendar.dart';
+import 'package:provider/provider.dart';
+import 'package:track/config/provider_config.dart';
+import 'package:track/model/global_model.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'index/right_affairs.dart';
 
-import 'package:flutter_custom_calendar/flutter_custom_calendar.dart';
+void main() => runApp(
+    ProviderConfig.getInstance().getGlobal(MyApp()),
+);
 
-void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Home(),
-    );
-  }
-}
-
-class Home extends StatelessWidget {
-  Home({Key key}) : super(key: key);
+  MyApp({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final model = Provider.of<GlobalModel>(context)..setContext(context);
     ScreenUtil.init(width: 720, height: 1280, allowFontScaling: true);
     return MaterialApp(
-        home: new Scaffold(
-
-          appBar: home_appBar(),
-          bottomNavigationBar: BottomBar(),
-          body: Container(
-            child: Column(
-              children: [
-                calendar,
-                Row(
-                  children: [
-
-                    RightAffairs(),
-                  ],
-                ),
-              ],
-            )
-          ),
-        ),
+      title: model.appName,
+//      theme: ThemeUtil.,
+      home: getHomePage(),
     );
+  }
+
+  Widget getHomePage() {
+    return ProviderConfig.getInstance().getMainPage();
   }
 }
