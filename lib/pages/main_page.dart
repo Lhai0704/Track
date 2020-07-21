@@ -10,7 +10,15 @@ import 'package:track/widgets/index_app_bar.dart';
 import 'package:flutter_custom_calendar/flutter_custom_calendar.dart';
 import 'package:track/widgets/index_calendar.dart';
 
-class MainPage extends StatelessWidget {
+class MainPage extends StatefulWidget {
+
+  @override
+  State createState() {
+    return new _MainPageState();
+  }
+}
+
+class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<MainPageModel>(context);
@@ -18,20 +26,22 @@ class MainPage extends StatelessWidget {
     model.setContext(context, globalModel: globalModel);
     globalModel.setMainPageModel(model);
 
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Container(
         child: SafeArea(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               IndexAppBar(Colors.white),
-              CalendarViewWidget(calendarController: controller,),
+              calendar,
+
               ListView(
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
                 children: model.logic.getCards(context),
               ),
-              Text("aa"),
             ],
           ),
 

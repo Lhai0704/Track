@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
+import 'package:track/model/essay_page_model.dart';
 import 'package:track/model/global_model.dart';
 import 'package:track/model/main_page_model.dart';
+import 'package:track/pages/essay_page.dart';
 import 'package:track/pages/main_page.dart';
 
 /**
  * Created by luhai on 2020/7/15
+ * provider配置类
  */
 
 class ProviderConfig {
@@ -34,6 +37,13 @@ class ProviderConfig {
     return ChangeNotifierProvider<MainPageModel>(
       create: (context) => MainPageModel(),
       child: MainPage(),
+    );
+  }
+
+  ChangeNotifierProvider<EssayPageModel> getEssayPage() {
+    return ChangeNotifierProvider<EssayPageModel>(
+      create: (context) => EssayPageModel(),
+      child: EssayPage(),
     );
   }
 }

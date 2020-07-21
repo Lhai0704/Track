@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<GlobalModel>(context)..setContext(context);
-    ScreenUtil.init(width: 720, height: 1280, allowFontScaling: true);
+//    ScreenUtil.init(context, width: 720, height: 1280, allowFontScaling: true);
     return MaterialApp(
       title: model.appName,
 //      theme: ThemeUtil.,

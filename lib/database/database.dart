@@ -6,6 +6,7 @@ import 'dart:async';
 
 /**
  * Created by luhai on 2020/7/15
+ * 数据库操作
  */
 
 class DBProvider {
@@ -48,6 +49,7 @@ class DBProvider {
     );
   }
 
+  // 新建事务
   Future createAffair(AffairBean affair) async {
     final db = await database;
     affair.id = await db.insert("Affairs", affair.toMap());

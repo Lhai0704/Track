@@ -9,6 +9,8 @@ import 'affair_icon_bean.dart';
 class AffairBean {
   int id;
   String name;
+
+  // 2012-02-27 13:27:00
   String startTime;
   String endTime;
   AffairIconBean affairIconBean;
@@ -27,10 +29,18 @@ class AffairBean {
     this.affairStatus = AffairStatus.todo
   });
 
+  Duration getDuration() {
+    DateTime time1 = DateTime.parse(startTime);
+    DateTime time2 = DateTime.parse(endTime);
+    return time2.difference(time1);
+  }
+
   static AffairBean fromMap(Map<String, dynamic> map) {
     AffairBean affairBean = new AffairBean();
     affairBean.id = map['id'];
     affairBean.name = map['name'];
+    affairBean.startTime = map['startTime'];
+    affairBean.endTime = map['endTime'];
     affairBean.affairType = map['affairType'];
     affairBean.affairStatus = map['affairStatus'];
     affairBean.remark = map['remark'];
