@@ -1,10 +1,10 @@
 # Track
 
 ## flutter官网文档: 
-www.flutter.dev		
-www.flutter.cn
-www.flutter.dev/docs		
-www.flutter.cn/docs
+www.flutter.dev   
+www.flutter.cn    
+www.flutter.dev/docs    
+www.flutter.cn/docs   
 
 ## 项目架构
 
