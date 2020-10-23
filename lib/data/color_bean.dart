@@ -15,6 +15,16 @@ class ColorBean {
   static Color fromBean(ColorBean bean) =>
       Color.fromRGBO(bean.red, bean.green, bean.blue, bean.opacity);
 
+  // 切分字符串（含头不含尾）
+  static ColorBean fromString(String str) {
+    ColorBean bean = new ColorBean();
+    bean.red = int.parse(str.substring(0, 2));
+    bean.green = int.parse(str.substring(2, 4));
+    bean.blue = int.parse(str.substring(4, 6));
+    bean.opacity = 1;
+    return bean;
+  }
+
   static ColorBean fromMap(Map<String, dynamic> map) {
     if(map == null) return null;
     if(map.isEmpty) return null;

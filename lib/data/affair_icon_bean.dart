@@ -53,6 +53,7 @@ class IconBean {
     this.fontPackage,
     this.iconName});
 
+
   static IconData fromBean(IconBean bean) =>
       IconData(bean.codePoint, fontFamily: bean.fontFamily);
 

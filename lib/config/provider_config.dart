@@ -4,8 +4,12 @@ import 'package:provider/provider.dart';
 import 'package:track/model/essay_page_model.dart';
 import 'package:track/model/global_model.dart';
 import 'package:track/model/main_page_model.dart';
+import 'package:track/model/new_affair_page_model.dart';
+import 'package:track/model/new_common_affair_page_model.dart';
 import 'package:track/pages/essay_page.dart';
 import 'package:track/pages/main_page.dart';
+import 'package:track/pages/new_affair_page.dart';
+import 'package:track/pages/new_common_affair_page.dart';
 
 /**
  * Created by luhai on 2020/7/15
@@ -44,6 +48,20 @@ class ProviderConfig {
     return ChangeNotifierProvider<EssayPageModel>(
       create: (context) => EssayPageModel(),
       child: EssayPage(),
+    );
+  }
+
+  ChangeNotifierProvider<NewAffairPageModel> getNewAffairPage(int icon, int color) {
+    return ChangeNotifierProvider<NewAffairPageModel>(
+      create: (context) => NewAffairPageModel(),
+      child: NewAffairPage(icon: icon, color: color),
+    );
+  }
+
+  ChangeNotifierProvider<NewCommonAffairPageModel> getNewCommonAffairPage() {
+    return ChangeNotifierProvider<NewCommonAffairPageModel>(
+      create: (context) => NewCommonAffairPageModel(),
+      child: NewCommonAffairPage(),
     );
   }
 }

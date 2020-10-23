@@ -10,7 +10,30 @@ class EssayPage extends StatelessWidget {
     return Scaffold(
       body: Container(
         child: SafeArea(
-          child: Text('this is essay page.'),
+          child: Column(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.red,
+                  border: new Border.all(color: Colors.black, width: 2.0),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black,
+                    offset: Offset(0, 2),
+                  ),
+                ],
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                ),
+                child: Container(
+                  width: 100,
+                  height: 100,
+                  child: Text("a"),
+                ),
+              ),
+
+            ],
+          ),
+
         ),
       ),
     );

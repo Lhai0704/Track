@@ -1,4 +1,4 @@
-/**
+ /**
 * @Author: Lu Hai
 * @Date: 2020/7/10
 * @Description: 主界面
@@ -18,14 +18,16 @@ void main() => runApp(
 class MyApp extends StatelessWidget {
   MyApp({Key key}) : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<GlobalModel>(context)..setContext(context);
 //    ScreenUtil.init(context, width: 720, height: 1280, allowFontScaling: true);
     return MaterialApp(
       title: model.appName,
-//      theme: ThemeUtil.,
-      home: getHomePage(),
+      home: Scaffold(
+        body: getHomePage(),
+      ),
     );
   }
 
