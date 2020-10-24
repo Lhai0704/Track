@@ -4,6 +4,7 @@
 import "package:flutter/material.dart";
 import 'package:track/dao/tables_dao.dart';
 import 'package:track/model/global_model.dart';
+import 'package:track/model/main_page_model.dart';
 import 'package:track/model/new_common_affair_page_model.dart';
 import 'package:track/widgets/myExpansionTile.dart';
 import 'package:track/widgets/new_affair_app_bar.dart';
@@ -28,6 +29,8 @@ class _NewCommonAffairPageState extends State<NewCommonAffairPage> {
       text: "事务仓库",
     ),
   ];
+
+  List<Widget> listWidgets = List<Widget>();
 
   // 选择图标的数据
   List<Widget> _getIconData(context) {
@@ -282,7 +285,13 @@ class _NewCommonAffairPageState extends State<NewCommonAffairPage> {
                                                   child: Container(
                                                     margin: EdgeInsets.fromLTRB(
                                                         40, 20, 0, 20),
-                                                    child: Text("事务名称"),
+                                                    child: Text(
+                                                      "事务名称",
+                                                      style: TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.w500),
+                                                    ),
                                                   ),
                                                 ),
                                                 Expanded(
@@ -334,19 +343,45 @@ class _NewCommonAffairPageState extends State<NewCommonAffairPage> {
                                                 Expanded(
                                                   child: Container(
                                                     margin: EdgeInsets.fromLTRB(
-                                                        40, 20, 0, 20),
-                                                    child: Text("事务类型"),
+                                                        40, 10, 0, 10),
+                                                    child: Text(
+                                                      "事务类型",
+                                                      style: TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.w500),
+                                                    ),
                                                   ),
                                                 ),
                                                 Expanded(
                                                   flex: 2,
-                                                  child: Wrap(
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceAround,
                                                     children: [
                                                       ChoiceChip(
+                                                          selectedColor:
+                                                              Color.fromRGBO(0,
+                                                                  182, 152, 1),
+                                                          backgroundColor:
+                                                              Color.fromRGBO(
+                                                                  242,
+                                                                  247,
+                                                                  247,
+                                                                  1),
                                                           selected:
                                                               _selectedType ==
                                                                   1,
-                                                          label: Text('学习'),
+                                                          label: Text(
+                                                            '学习',
+                                                            style: TextStyle(
+                                                                color: _selectedType == 1
+                                                                    ? Colors
+                                                                        .white
+                                                                    : Colors
+                                                                        .black),
+                                                          ),
                                                           onSelected:
                                                               (bool selected) {
                                                             setState(() {
@@ -354,10 +389,27 @@ class _NewCommonAffairPageState extends State<NewCommonAffairPage> {
                                                             });
                                                           }),
                                                       ChoiceChip(
+                                                          selectedColor:
+                                                              Color.fromRGBO(0,
+                                                                  182, 152, 1),
+                                                          backgroundColor:
+                                                              Color.fromRGBO(
+                                                                  242,
+                                                                  247,
+                                                                  247,
+                                                                  1),
                                                           selected:
                                                               _selectedType ==
                                                                   2,
-                                                          label: Text('工作'),
+                                                          label: Text(
+                                                            '工作',
+                                                            style: TextStyle(
+                                                                color: _selectedType == 2
+                                                                    ? Colors
+                                                                        .white
+                                                                    : Colors
+                                                                        .black),
+                                                          ),
                                                           onSelected:
                                                               (bool selected) {
                                                             setState(() {
@@ -365,10 +417,27 @@ class _NewCommonAffairPageState extends State<NewCommonAffairPage> {
                                                             });
                                                           }),
                                                       ChoiceChip(
+                                                          selectedColor:
+                                                              Color.fromRGBO(0,
+                                                                  182, 152, 1),
+                                                          backgroundColor:
+                                                              Color.fromRGBO(
+                                                                  242,
+                                                                  247,
+                                                                  247,
+                                                                  1),
                                                           selected:
                                                               _selectedType ==
                                                                   3,
-                                                          label: Text('生活'),
+                                                          label: Text(
+                                                            '生活',
+                                                            style: TextStyle(
+                                                                color: _selectedType == 3
+                                                                    ? Colors
+                                                                        .white
+                                                                    : Colors
+                                                                        .black),
+                                                          ),
                                                           onSelected:
                                                               (bool selected) {
                                                             setState(() {
@@ -376,10 +445,27 @@ class _NewCommonAffairPageState extends State<NewCommonAffairPage> {
                                                             });
                                                           }),
                                                       ChoiceChip(
+                                                          selectedColor:
+                                                              Color.fromRGBO(0,
+                                                                  182, 152, 1),
+                                                          backgroundColor:
+                                                              Color.fromRGBO(
+                                                                  242,
+                                                                  247,
+                                                                  247,
+                                                                  1),
                                                           selected:
                                                               _selectedType ==
                                                                   4,
-                                                          label: Text('娱乐'),
+                                                          label: Text(
+                                                            '娱乐',
+                                                            style: TextStyle(
+                                                                color: _selectedType == 4
+                                                                    ? Colors
+                                                                        .white
+                                                                    : Colors
+                                                                        .black),
+                                                          ),
                                                           onSelected:
                                                               (bool selected) {
                                                             setState(() {
@@ -430,7 +516,14 @@ class _NewCommonAffairPageState extends State<NewCommonAffairPage> {
                                                         margin:
                                                             EdgeInsets.fromLTRB(
                                                                 30, 2, 0, 2),
-                                                        child: Text("备注"),
+                                                        child: Text(
+                                                          "备注",
+                                                          style: TextStyle(
+                                                              fontSize: 14,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500),
+                                                        ),
                                                       ),
                                                       Container(
                                                         margin:
@@ -596,7 +689,7 @@ class _NewCommonAffairPageState extends State<NewCommonAffairPage> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  height: 50,
+                                  height: 80,
                                 ),
 
                                 // 事务仓库1 生活
@@ -635,7 +728,7 @@ class _NewCommonAffairPageState extends State<NewCommonAffairPage> {
                                           Text(
                                             "LIVING",
                                             style: TextStyle(
-                                                fontSize: 22,
+                                                fontSize: 18,
                                                 color: Colors.white),
                                           ),
                                           Container(
@@ -647,7 +740,37 @@ class _NewCommonAffairPageState extends State<NewCommonAffairPage> {
                                                 'assets/star.png',
                                                 height: 20,
                                               ),
-                                              Text('12'),
+                                              FutureBuilder(
+                                                // ignore: missing_return
+                                                builder: (BuildContext context,
+                                                    AsyncSnapshot snapshot) {
+                                                  switch (snapshot
+                                                      .connectionState) {
+                                                    case ConnectionState.done:
+                                                      print("done");
+                                                      return Text(
+                                                          '${snapshot.data.length}');
+                                                      break;
+                                                    case ConnectionState.none:
+                                                      print("none");
+                                                      return Text(
+                                                          "${snapshot.data}");
+                                                      break;
+                                                    case ConnectionState
+                                                        .waiting:
+                                                      print("wating");
+                                                      return Text(
+                                                          "${snapshot.data}");
+                                                      break;
+                                                    case ConnectionState.active:
+                                                      print("active");
+                                                      return Text(
+                                                          "${snapshot.data}");
+                                                      break;
+                                                  }
+                                                },
+                                                future: model.getAllAffairs(),
+                                              ),
                                             ],
                                           )
                                         ],
@@ -657,8 +780,9 @@ class _NewCommonAffairPageState extends State<NewCommonAffairPage> {
                                   children: [
                                     Container(
                                       height: 200,
+                                      margin: EdgeInsets.fromLTRB(14, 0, 12, 0),
                                       padding:
-                                          EdgeInsets.fromLTRB(20, 0, 10, 0),
+                                          EdgeInsets.fromLTRB(10, 8, 10, 0),
                                       decoration: BoxDecoration(
                                         border: new Border.all(
                                             color: Colors.black, width: 1.0),
@@ -673,8 +797,41 @@ class _NewCommonAffairPageState extends State<NewCommonAffairPage> {
                                         color: Color.fromRGBO(242, 247, 247, 1),
                                       ),
                                       child: Container(
-                                        color: Colors.red,
-                                      ),
+                                          child: FutureBuilder(
+                                        // ignore: missing_return
+                                        builder: (BuildContext context,
+                                            AsyncSnapshot snapshot) {
+                                          switch (snapshot.connectionState) {
+                                            case ConnectionState.done:
+                                              print("done");
+                                              return GridView(
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                gridDelegate:
+                                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                                  crossAxisCount: 3,
+                                                  childAspectRatio: 1.0,
+                                                ),
+                                                children: snapshot.data,
+                                              );
+                                              break;
+                                            case ConnectionState.none:
+                                              print("none");
+                                              return Text("${snapshot.data}");
+                                              break;
+                                            case ConnectionState.waiting:
+                                              print("wating");
+                                              return Text("${snapshot.data}");
+                                              break;
+                                            case ConnectionState.active:
+                                              print("active");
+                                              return Text("${snapshot.data}");
+                                              break;
+                                          }
+                                        },
+                                        future:
+                                            model.getAffairsWidgetList(context),
+                                      )),
                                     )
                                   ],
                                 ),
@@ -703,7 +860,70 @@ class _NewCommonAffairPageState extends State<NewCommonAffairPage> {
                                     ),
                                     height: 120,
                                     // width: 700,
-                                    child: Text("生活"),
+                                    child: Container(
+                                      padding: EdgeInsets.fromLTRB(20, 5, 0, 0),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "娱乐",
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                color: Colors.black),
+                                          ),
+                                          Text(
+                                            "ENTERTAIN",
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                color: Colors.white),
+                                          ),
+                                          Container(
+                                            height: 10,
+                                          ),
+                                          Row(
+                                            children: [
+                                              Image.asset(
+                                                'assets/star.png',
+                                                height: 20,
+                                              ),
+                                              Text('${model.affairs.length}'),
+                                              FutureBuilder(
+                                                // ignore: missing_return
+                                                builder: (BuildContext context,
+                                                    AsyncSnapshot snapshot) {
+                                                  switch (snapshot
+                                                      .connectionState) {
+                                                    case ConnectionState.done:
+                                                      print("done");
+                                                      return Text(
+                                                          '${snapshot.data.length}');
+                                                      break;
+                                                    case ConnectionState.none:
+                                                      print("none");
+                                                      return Text(
+                                                          "${snapshot.data}");
+                                                      break;
+                                                    case ConnectionState
+                                                        .waiting:
+                                                      print("wating");
+                                                      return Text(
+                                                          "${snapshot.data}");
+                                                      break;
+                                                    case ConnectionState.active:
+                                                      print("active");
+                                                      return Text(
+                                                          "${snapshot.data}");
+                                                      break;
+                                                  }
+                                                },
+                                                future: model.getAllAffairs(),
+                                              ),
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    ),
                                   ),
                                   children: [
                                     Container(
@@ -750,7 +970,69 @@ class _NewCommonAffairPageState extends State<NewCommonAffairPage> {
                                     ),
                                     height: 120,
                                     // width: 700,
-                                    child: Text("生活"),
+                                    child: Container(
+                                      padding: EdgeInsets.fromLTRB(20, 5, 0, 0),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "学习",
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                color: Colors.black),
+                                          ),
+                                          Text(
+                                            "STUDY",
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                color: Colors.white),
+                                          ),
+                                          Container(
+                                            height: 10,
+                                          ),
+                                          Row(
+                                            children: [
+                                              Image.asset(
+                                                'assets/star.png',
+                                                height: 20,
+                                              ),
+                                              FutureBuilder(
+                                                // ignore: missing_return
+                                                builder: (BuildContext context,
+                                                    AsyncSnapshot snapshot) {
+                                                  switch (snapshot
+                                                      .connectionState) {
+                                                    case ConnectionState.done:
+                                                      print("done");
+                                                      return Text(
+                                                          '${snapshot.data.length}');
+                                                      break;
+                                                    case ConnectionState.none:
+                                                      print("none");
+                                                      return Text(
+                                                          "${snapshot.data}");
+                                                      break;
+                                                    case ConnectionState
+                                                        .waiting:
+                                                      print("wating");
+                                                      return Text(
+                                                          "${snapshot.data}");
+                                                      break;
+                                                    case ConnectionState.active:
+                                                      print("active");
+                                                      return Text(
+                                                          "${snapshot.data}");
+                                                      break;
+                                                  }
+                                                },
+                                                future: model.getAllAffairs(),
+                                              ),
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    ),
                                   ),
                                   children: [
                                     Container(
@@ -801,7 +1083,69 @@ class _NewCommonAffairPageState extends State<NewCommonAffairPage> {
                                     ),
                                     height: 120,
                                     // width: 700,
-                                    child: Text("生活"),
+                                    child: Container(
+                                      padding: EdgeInsets.fromLTRB(20, 5, 0, 0),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "工作",
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                color: Colors.black),
+                                          ),
+                                          Text(
+                                            "WORK",
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                color: Colors.white),
+                                          ),
+                                          Container(
+                                            height: 10,
+                                          ),
+                                          Row(
+                                            children: [
+                                              Image.asset(
+                                                'assets/star.png',
+                                                height: 20,
+                                              ),
+                                              FutureBuilder(
+                                                // ignore: missing_return
+                                                builder: (BuildContext context,
+                                                    AsyncSnapshot snapshot) {
+                                                  switch (snapshot
+                                                      .connectionState) {
+                                                    case ConnectionState.done:
+                                                      print("done");
+                                                      return Text(
+                                                          '${snapshot.data.length}');
+                                                      break;
+                                                    case ConnectionState.none:
+                                                      print("none");
+                                                      return Text(
+                                                          "${snapshot.data}");
+                                                      break;
+                                                    case ConnectionState
+                                                        .waiting:
+                                                      print("wating");
+                                                      return Text(
+                                                          "${snapshot.data}");
+                                                      break;
+                                                    case ConnectionState.active:
+                                                      print("active");
+                                                      return Text(
+                                                          "${snapshot.data}");
+                                                      break;
+                                                  }
+                                                },
+                                                future: model.getAllAffairs(),
+                                              ),
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    ),
                                   ),
                                   children: [
                                     Container(

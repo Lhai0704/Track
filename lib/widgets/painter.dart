@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 /**
@@ -5,10 +7,11 @@ import 'package:flutter/material.dart';
  */
 
 class Painter extends CustomPainter{
+  final width = window.physicalSize.width / window.devicePixelRatio;
 
   @override
   void paint(Canvas canvas, Size size) {
-    Rect rect = Rect.fromPoints(Offset(-30, -200), Offset(450, 180));
+    Rect rect = Rect.fromPoints(Offset(-30, -100), Offset(width + 30, 200));
 
     var paint = Paint()
         ..color = Color.fromRGBO(0, 195, 198, 1);

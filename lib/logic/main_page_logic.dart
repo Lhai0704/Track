@@ -62,11 +62,12 @@ class MainPageLogic {
           child: Column(
             children: [
               Container(
-                height: 50,
-                width: 50,
+                height: 40,
+                width: 40,
                 decoration: BoxDecoration(
                   color: Color(a.color),
-                  borderRadius: BorderRadius.all(Radius.circular(2.0)),
+                  border: Border.all(color: Colors.black, width: 0.5),
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
                 ),
                 child: Container(
                   child: IconButton(
@@ -89,15 +90,26 @@ class MainPageLogic {
           child: Column(
             children: [
               Container(
-                height: 50,
-                width: 50,
+                height: 40,
+                width: 40,
                 decoration: BoxDecoration(
                   color: Color(a.color),
-                  borderRadius: BorderRadius.all(Radius.circular(2.0)),
+                  border: Border.all(color: Colors.black, width: 0.5),
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
                 ),
-                child: Icon(IconData(a.icon, fontFamily: 'MyFlutterApp')),
+                child: Container(
+                  child: IconButton(
+                    icon: Icon(IconData(a.icon, fontFamily: 'MyFlutterApp')),
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(
+                          builder: (context) {
+                            return ProviderConfig.getInstance().getNewAffairPage(a.icon, a.color);
+                          }));
+                    },
+                  ),
+                ),
               ),
-              Text("${a.name}", style: TextStyle(color: Colors.black, fontSize: 16),),
+              Text("${a.name}", style: TextStyle(color: Colors.black, fontSize: 12),),
             ],
           ),
         ),
@@ -105,11 +117,12 @@ class MainPageLogic {
           child: Column(
             children: [
               Container(
-                height: 50,
-                width: 50,
+                height: 40,
+                width: 40,
                 decoration: BoxDecoration(
                   color: Color(a.color),
-                  borderRadius: BorderRadius.all(Radius.circular(2.0)),
+                  border: Border.all(color: Colors.black, width: 0.5),
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
                 ),
                 child: Container(
                   child: IconButton(

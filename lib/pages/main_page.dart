@@ -18,6 +18,8 @@ import 'package:track/pages/statistic.dart';
 import 'package:flutter_custom_calendar/flutter_custom_calendar.dart';
 import 'dart:io';
 
+import 'package:track/util/numberToChinese.dart';
+
 class MainPage extends StatefulWidget {
   @override
   State createState() {
@@ -60,14 +62,14 @@ class _MainPageState extends State<MainPage> {
             children: [
               // appBar
               Container(
-                child: Column(
-                  children: [
-                    Row(
+                child: Container(
+                  margin: EdgeInsets.fromLTRB(0, 5, 0, 10),
+                  child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         IconButton(
                             padding: EdgeInsets.fromLTRB(0, 4, 50, 4),
-                            icon: Icon(Icons.category),
+                            icon: Icon(Icons.book),
                             onPressed: () {
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (context) {
@@ -80,17 +82,17 @@ class _MainPageState extends State<MainPage> {
                           children: [
                             Text(
                               '今日事务',
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
                             ),
                             Text('${selectDate.month}' +
                                 '月' +
                                 '${selectDate.day}' +
-                                '日'),
+                                '日 星期' + '${NumberToChinese.convert(selectDate.getDateTime().weekday)}'),
                           ],
                         ),
                         new PopupMenuButton<String>(
                             padding: EdgeInsets.fromLTRB(50, 4, 0, 4),
-                            icon: Icon(Icons.add),
+                            icon: Icon(Icons.add_circle_outline),
                             onSelected: (String value) {
                               setState(() {
                                 print('$value');
@@ -127,7 +129,6 @@ class _MainPageState extends State<MainPage> {
                                 ])
                       ],
                     ),
-                  ],
                 ),
               ),
 
@@ -161,17 +162,17 @@ class _MainPageState extends State<MainPage> {
 
                     // 右侧常用事务
                     Container(
-                      width: 64,
+                      width: globalModel.screenWidth / 7,
                       child: Container(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
                               "常用事务",
-                              style: TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.bold),
+                              style: TextStyle(color: Color.fromRGBO(22, 87, 96, 1),
+                                  fontSize: 14, fontWeight: FontWeight.w600),
                             ),
-
+                            Container(height: 10,),
                             // 常用事务列表
                             Container(
                               child: Flexible(
@@ -238,6 +239,9 @@ class _MainPageState extends State<MainPage> {
                                     style: TextStyle(
                                         color: Color.fromRGBO(0, 195, 198, 1)),
                                   ),
+                                  Container(
+                                    height: 20,
+                                  )
                                 ],
                               ),
                             ),
@@ -311,11 +315,10 @@ class CustomStyleWeekBarItem extends BaseWeekBar {
   @override
   Widget getWeekBarItem(int index) {
     return new Container(
-      margin: EdgeInsets.only(top: 0, bottom: 0),
       child: new Center(
         child: new Text(
           weekList[index],
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Color.fromRGBO(22, 87, 96, 1)),
         ),
       ),
     );
@@ -332,7 +335,7 @@ class DefaultCombineDayWidget extends BaseCombineDayWidget {
       alignment: Alignment.center,
       child: Text(
         '${dateModel.day}',
-        style: TextStyle(fontSize: 18),
+        style: TextStyle(fontWeight: FontWeight.w300,fontSize: 18, color: Color.fromRGBO(22, 87, 96, 1)),
       ),
     );
   }
@@ -341,13 +344,14 @@ class DefaultCombineDayWidget extends BaseCombineDayWidget {
   Widget getSelectedWidget(DateModel dateModel) {
     //绘制被选中的UI
     return Container(
+      margin: EdgeInsets.all(3.0),
       decoration: BoxDecoration(
           color: Color.fromRGBO(0, 195, 198, 1),
-          borderRadius: BorderRadius.all(Radius.circular(30)),
+          borderRadius: BorderRadius.all(Radius.circular(300)),
           boxShadow: [
             BoxShadow(
-              color: Colors.black54,
-              offset: Offset(0, 2.0),
+              color: Colors.grey,
+              offset: Offset(0.5, 4.0),
             )
           ]),
       child: Center(
@@ -368,6 +372,7 @@ class LinePainter extends CustomPainter {
   LinePainter(this.allData, this.date);
 
   List<Affair> todayData = List<Affair>();
+  final width = window.physicalSize.width / window.devicePixelRatio;
 
   // 提取当天的Affair
   void getTodayAffair() {
@@ -386,8 +391,9 @@ class LinePainter extends CustomPainter {
     print("全部affair:$allData");
     print("当天affair:$todayData");
 
+
     // 时间轴及左侧时间数字
-    for (int i = 1; i < 24; i++) {
+    for (int i = 0; i < 25; i++) {
       // 左侧时间数字
       TextSpan span = new TextSpan(
           style: new TextStyle(color: Color.fromRGBO(0, 182, 152, 1)),
@@ -397,13 +403,17 @@ class LinePainter extends CustomPainter {
           textAlign: TextAlign.left,
           textDirection: TextDirection.ltr);
       tp.layout();
-      tp.paint(canvas, new Offset(20, i * 120.1));
+      tp.paint(canvas, new Offset(width / 28, i * 120.00001));
       // 时间轴横线
-      canvas.drawLine(Offset(40, i * 120.1), Offset(400, i * 120.1), _paint);
+      canvas.drawLine(Offset(width / 14, i * 120.00001), Offset(width / 7 * 6, i * 120.00001), _paint);
     }
 
     // 今日计划
     todayData.forEach((element) {
+      // 开始与结束时间
+      int start = element.startTime.hour * 60 + element.startTime.minute;
+      int end = element.endTime.hour * 60 + element.endTime.minute;
+
       // 矩形框背景颜色，类别控制，4种
       switch (element.category) {
         case 1:
@@ -428,37 +438,57 @@ class LinePainter extends CustomPainter {
           break;
       }
 
-      // 开始与结束时间
-      int start = element.startTime.hour * 60 + element.startTime.minute;
-      int end = element.endTime.hour * 60 + element.endTime.minute;
-
-      // 背景矩形框
+      // 背景矩形框及边框
       canvas.drawRRect(
           RRect.fromRectAndRadius(
-              Rect.fromPoints(Offset(30, start * 2.0), Offset(345, end * 2.0)),
+              Rect.fromPoints(Offset(30, start * 2.0), Offset(width / 7 * 6, end * 2.0)),
               Radius.circular(10)),
           _paint);
 
+
       // 事务名称
       TextSpan name = new TextSpan(
-          style: new TextStyle(color: Colors.black), text: element.name);
+          style: new TextStyle(color: Colors.black, fontSize: 18), text: element.name);
       TextPainter tp1 = new TextPainter(
           text: name,
           textAlign: TextAlign.left,
           textDirection: TextDirection.ltr);
       tp1.layout();
-      tp1.paint(canvas, Offset(150, (start + end) * 0.99));
+      tp1.paint(canvas, Offset(width / 7 * 2, (start + end) * 1.0 - 9));
 
       // 图标背景
-      _paint..color = Color(element.color);
-      canvas.drawCircle(Offset(55.0, (start + end) * 0.9999), 20.0, _paint);
+      Path path = new Path();
 
-      // 事务图标
-      TextPainter textPainter = TextPainter(textDirection: TextDirection.rtl);
-      textPainter.text = TextSpan(text: String.fromCharCode(element.icon),
-          style: TextStyle(fontSize: 17.0,fontFamily: 'MyFlutterApp', color: Colors.black));
-      textPainter.layout();
-      textPainter.paint(canvas, Offset(50.0, (start + end) * 0.99));
+      if(end - start > 25) {
+        // 图标背景及边框
+        _paint
+          ..color = Colors.black
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 2.0;
+        Rect rect = Rect.fromCircle(
+            center: Offset(width / 7, (start + end) * 1.0), radius: 20.0);
+        path.arcTo(rect, 0.0, 3.14 * 2, false);
+        canvas.drawPath(path, _paint);
+
+        _paint
+          ..color = Color(element.color)
+          ..style = PaintingStyle.fill;
+        path.arcTo((Rect.fromCircle(
+            center: Offset(width / 7, (start + end) * 1.0), radius: 20.0)
+        ), 0.0, 3.14 * 2, false);
+        canvas.drawPath(path, _paint);
+
+
+        // 事务图标
+        TextPainter textPainter = TextPainter(
+            textDirection: TextDirection.ltr, textAlign: TextAlign.center);
+        textPainter.text = TextSpan(text: String.fromCharCode(element.icon),
+            style: TextStyle(fontSize: 18.0,
+                fontFamily: 'MyFlutterApp',
+                color: Colors.black));
+        textPainter.layout();
+        textPainter.paint(canvas, Offset(width / 7 - 9, (start + end) * 1.0 - 9));
+      }
     });
 
     // final icon = Icons.category;

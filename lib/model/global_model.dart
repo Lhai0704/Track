@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_calendar/flutter_custom_calendar.dart';
 import 'package:moor_flutter/moor_flutter.dart';
@@ -18,6 +20,8 @@ class GlobalModel extends ChangeNotifier {
   GlobalLogic logic;
   BuildContext context;
   String appName = 'Track';
+  double screenWidth = window.physicalSize.width / window.devicePixelRatio;
+
 
   TablesDao database;     // 数据库操作对象
   // DateModel selectDate = DateModel.fromDateTime(DateTime.parse("2020-10-18 09:00:56"));

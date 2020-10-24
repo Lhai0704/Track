@@ -77,6 +77,10 @@ class MainPageModel extends ChangeNotifier {
     print("添加一个commonaffair");
   }
 
+  void insertAffair(CommonAffair commonAffair) {
+    globalModel.database.insertNewCommonAffair(commonAffair);
+  }
+
 
   @override
   void dispose() {
