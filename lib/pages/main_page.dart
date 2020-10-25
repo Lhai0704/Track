@@ -162,7 +162,7 @@ class _MainPageState extends State<MainPage> {
 
                     // 右侧常用事务
                     Container(
-                      width: globalModel.screenWidth / 7,
+                      width: globalModel.screenWidth / 6,
                       child: Container(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -375,19 +375,24 @@ class LinePainter extends CustomPainter {
   final width = window.physicalSize.width / window.devicePixelRatio;
 
   // 提取当天的Affair
-  void getTodayAffair() {
-    allData.forEach((element) {
-      if (element.startTime.day == date.day) {
-        todayData.add(element);
-      }
-    });
+  void getTodayAffair(List<Affair> allData) {
+    if(allData.isNotEmpty) {
+      allData.forEach((element) {
+        if (element.startTime.day == date.day) {
+          todayData.add(element);
+        } else {
+
+        }
+      });
+    }
   }
 
+  Paint pen = Paint()..color = Color.fromRGBO(0, 182, 152, 1);
   Paint _paint = Paint()..color = Color.fromRGBO(0, 182, 152, 1);
 
   @override
   void paint(Canvas canvas, Size size) {
-    getTodayAffair();
+    getTodayAffair(allData);
     print("全部affair:$allData");
     print("当天affair:$todayData");
 
@@ -405,116 +410,109 @@ class LinePainter extends CustomPainter {
       tp.layout();
       tp.paint(canvas, new Offset(width / 28, i * 120.00001));
       // 时间轴横线
-      canvas.drawLine(Offset(width / 14, i * 120.00001), Offset(width / 7 * 6, i * 120.00001), _paint);
+      canvas.drawLine(Offset(width / 14, i * 120.00001), Offset(width / 7 * 6, i * 120.00001), pen);
     }
 
     // 今日计划
-    todayData.forEach((element) {
-      // 开始与结束时间
-      int start = element.startTime.hour * 60 + element.startTime.minute;
-      int end = element.endTime.hour * 60 + element.endTime.minute;
+    if(todayData.isNotEmpty) {
+      todayData.forEach((element) {
+        // 开始与结束时间
+        int start = element.startTime.hour * 60 + element.startTime.minute;
+        int end = element.endTime.hour * 60 + element.endTime.minute;
 
-      // 矩形框背景颜色，类别控制，4种
-      switch (element.category) {
-        case 1:
-          {
-            _paint.color = Color.fromRGBO(203, 231, 161, 1);
-          }
-          break;
-        case 2:
-          {
-            _paint.color = Color.fromRGBO(243, 178, 221, 1);
-          }
-          break;
-        case 3:
-          {
-            _paint.color = Color.fromRGBO(255, 159, 83, 1);
-          }
-          break;
-        case 4:
-          {
-            _paint.color = Color.fromRGBO(174, 229, 255, 1);
-          }
-          break;
-      }
+        // 矩形框背景颜色，类别控制，4种
+        switch (element.category) {
+          case 1:
+            {
+              _paint.color = Color.fromRGBO(203, 231, 161, 1);
+            }
+            break;
+          case 2:
+            {
+              _paint.color = Color.fromRGBO(243, 178, 221, 1);
+            }
+            break;
+          case 3:
+            {
+              _paint.color = Color.fromRGBO(255, 159, 83, 1);
+            }
+            break;
+          case 4:
+            {
+              _paint.color = Color.fromRGBO(174, 229, 255, 1);
+            }
+            break;
+        }
 
-      // 背景矩形框及边框
-      canvas.drawRRect(
-          RRect.fromRectAndRadius(
-              Rect.fromPoints(Offset(30, start * 2.0), Offset(width / 7 * 6, end * 2.0)),
-              Radius.circular(10)),
-          _paint);
-
-
-      // 事务名称
-      TextSpan name = new TextSpan(
-          style: new TextStyle(color: Colors.black, fontSize: 18), text: element.name);
-      TextPainter tp1 = new TextPainter(
-          text: name,
-          textAlign: TextAlign.left,
-          textDirection: TextDirection.ltr);
-      tp1.layout();
-      tp1.paint(canvas, Offset(width / 7 * 2, (start + end) * 1.0 - 9));
-
-      // 图标背景
-      Path path = new Path();
-
-      if(end - start > 25) {
-        // 图标背景及边框
+        // 背景矩形框及边框
+        canvas.drawRRect(
+            RRect.fromRectAndRadius(
+                Rect.fromPoints(Offset(width / 14 + 5, start * 2.0),
+                    Offset(width / 7 * 6 - 10, end * 2.0)),
+                Radius.circular(10)),
+            _paint);
         _paint
           ..color = Colors.black
           ..style = PaintingStyle.stroke
-          ..strokeWidth = 2.0;
-        Rect rect = Rect.fromCircle(
-            center: Offset(width / 7, (start + end) * 1.0), radius: 20.0);
-        path.arcTo(rect, 0.0, 3.14 * 2, false);
-        canvas.drawPath(path, _paint);
+          ..strokeWidth = 1.0;
+        canvas.drawRRect(
+            RRect.fromRectAndRadius(
+                Rect.fromPoints(Offset(width / 14 + 5, start * 2.0),
+                    Offset(width / 7 * 6 - 10, end * 2.0)),
+                Radius.circular(10)),
+            _paint);
 
-        _paint
-          ..color = Color(element.color)
-          ..style = PaintingStyle.fill;
-        path.arcTo((Rect.fromCircle(
-            center: Offset(width / 7, (start + end) * 1.0), radius: 20.0)
-        ), 0.0, 3.14 * 2, false);
-        canvas.drawPath(path, _paint);
+        // 事务名称
+        TextSpan name = new TextSpan(
+            style: new TextStyle(color: Colors.black, fontSize: 16),
+            text: element.name);
+        TextPainter tp1 = new TextPainter(
+            text: name,
+            textAlign: TextAlign.left,
+            textDirection: TextDirection.ltr);
+        tp1.layout();
+        tp1.paint(canvas, Offset(width / 7 * 2 + 10, (start + end) * 1.0 - 10));
 
+        // 图标背景
+        Path path = new Path();
+        if (end - start > 25) {
 
-        // 事务图标
-        TextPainter textPainter = TextPainter(
-            textDirection: TextDirection.ltr, textAlign: TextAlign.center);
-        textPainter.text = TextSpan(text: String.fromCharCode(element.icon),
-            style: TextStyle(fontSize: 18.0,
-                fontFamily: 'MyFlutterApp',
-                color: Colors.black));
-        textPainter.layout();
-        textPainter.paint(canvas, Offset(width / 7 - 9, (start + end) * 1.0 - 9));
-      }
-    });
+          // 图标背景及边框
+          _paint
+            ..color = Colors.black
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = 2.0;
+          Rect rect = Rect.fromCircle(
+              center: Offset(width / 7 + 20, (start + end) * 1.0), radius: 20.0);
+          path.arcTo(rect, 0.0, 3.14 * 2, false);
+          canvas.drawPath(path, _paint);
 
-    // final icon = Icons.category;
-    // var builder = ParagraphBuilder(ParagraphStyle(
-    //   fontFamily: icon.fontFamily,
-    // ))..addText(String.fromCharCode(icon.codePoint));
-    // var para = builder.build();
-    // para.layout(const ParagraphConstraints(width: 500));
-    // canvas.drawParagraph(para, const Offset(50.0, 200.0));
+          _paint
+            ..color = Color(element.color)
+            ..style = PaintingStyle.fill;
+          path.arcTo((Rect.fromCircle(
+              center: Offset(width / 7 + 20, (start + end) * 1.0), radius: 20.0)
+          ), 0.0, 3.14 * 2, false);
+          canvas.drawPath(path, _paint);
 
+          // 左侧竖线
+          canvas.drawLine(Offset(width / 7 - 10, start * 2.0 + 10), Offset(width / 7 - 10, end * 2.0 - 10), _paint);
 
+          // 事务图标
+          TextPainter textPainter = TextPainter(
+              textDirection: TextDirection.ltr, textAlign: TextAlign.center);
+          textPainter.text = TextSpan(text: String.fromCharCode(element.icon),
+              style: TextStyle(fontSize: 18.0,
+                  fontFamily: 'MyFlutterApp',
+                  color: Colors.black));
+          textPainter.layout();
+          textPainter.paint(
+              canvas, Offset(width / 7 + 11, (start + end) * 1.0 - 9));
+        }
+      });
 
+    }
 
-    ParagraphBuilder pb2 = ParagraphBuilder(ParagraphStyle(
-      textAlign: TextAlign.left,
-      fontWeight: FontWeight.bold,
-      fontSize: 20,
-    ));
-    pb2.addText('学习');
-    ParagraphConstraints pc = ParagraphConstraints(width: 300);
-    Paragraph paragraph = pb2.build()..layout(pc);
-    // canvas.drawParagraph(paragraph, Offset(40.0, 40.0));
-
-    // for(int i = 0; i < todayData.length; i++){
-    //
-    // }
   }
 
   @override

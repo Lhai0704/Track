@@ -33,4 +33,7 @@ class TablesDao extends _$TablesDao {
 
   Future<List<CommonAffair>> getAllCommonAffairs() => select(commonAffairs).get();
   Future insertNewCommonAffair(CommonAffair commonAffair) => into(commonAffairs).insert(commonAffair);
+
+  Future<List<Essay>> getAllEssays() => select(essays).get();
+  Future insertNewEssay(Essay essay) => into(essays).insert(essay);
 }

@@ -11,7 +11,7 @@ class Painter extends CustomPainter{
 
   @override
   void paint(Canvas canvas, Size size) {
-    Rect rect = Rect.fromPoints(Offset(-30, -100), Offset(width + 30, 200));
+    Rect rect = Rect.fromPoints(Offset(-30, -70), Offset(width + 30, 230));
 
     var paint = Paint()
         ..color = Color.fromRGBO(0, 195, 198, 1);

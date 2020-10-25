@@ -51,11 +51,13 @@ class Essays extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get title => text()();
   TextColumn get content => text()();
-  IntColumn get background => integer()();
+  // IntColumn get background => integer()();
   TextColumn get picture => text()();
-  TextColumn get affair => text()();
-  TextColumn get goal => text()();
-  IntColumn get isDraft => integer()();
+  IntColumn get affair => integer()();
+  // TextColumn get goal => text()();
+  // IntColumn get isDraft => integer()();
+  DateTimeColumn get time => dateTime()();
+  RealColumn get WH => real()();
 }
 
 // 模版

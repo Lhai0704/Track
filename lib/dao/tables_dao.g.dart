@@ -1457,40 +1457,37 @@ class Essay extends DataClass implements Insertable<Essay> {
   final int id;
   final String title;
   final String content;
-  final int background;
   final String picture;
-  final String affair;
-  final String goal;
-  final int isDraft;
+  final int affair;
+  final DateTime time;
+  final double WH;
   Essay(
       {@required this.id,
       @required this.title,
       @required this.content,
-      @required this.background,
       @required this.picture,
       @required this.affair,
-      @required this.goal,
-      @required this.isDraft});
+      @required this.time,
+      @required this.WH});
   factory Essay.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
     final intType = db.typeSystem.forDartType<int>();
     final stringType = db.typeSystem.forDartType<String>();
+    final dateTimeType = db.typeSystem.forDartType<DateTime>();
+    final doubleType = db.typeSystem.forDartType<double>();
     return Essay(
       id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
       title:
           stringType.mapFromDatabaseResponse(data['${effectivePrefix}title']),
       content:
           stringType.mapFromDatabaseResponse(data['${effectivePrefix}content']),
-      background:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}background']),
       picture:
           stringType.mapFromDatabaseResponse(data['${effectivePrefix}picture']),
-      affair:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}affair']),
-      goal: stringType.mapFromDatabaseResponse(data['${effectivePrefix}goal']),
-      isDraft:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}is_draft']),
+      affair: intType.mapFromDatabaseResponse(data['${effectivePrefix}affair']),
+      time:
+          dateTimeType.mapFromDatabaseResponse(data['${effectivePrefix}time']),
+      WH: doubleType.mapFromDatabaseResponse(data['${effectivePrefix}wh']),
     );
   }
   @override
@@ -1505,20 +1502,17 @@ class Essay extends DataClass implements Insertable<Essay> {
     if (!nullToAbsent || content != null) {
       map['content'] = Variable<String>(content);
     }
-    if (!nullToAbsent || background != null) {
-      map['background'] = Variable<int>(background);
-    }
     if (!nullToAbsent || picture != null) {
       map['picture'] = Variable<String>(picture);
     }
     if (!nullToAbsent || affair != null) {
-      map['affair'] = Variable<String>(affair);
+      map['affair'] = Variable<int>(affair);
     }
-    if (!nullToAbsent || goal != null) {
-      map['goal'] = Variable<String>(goal);
+    if (!nullToAbsent || time != null) {
+      map['time'] = Variable<DateTime>(time);
     }
-    if (!nullToAbsent || isDraft != null) {
-      map['is_draft'] = Variable<int>(isDraft);
+    if (!nullToAbsent || WH != null) {
+      map['wh'] = Variable<double>(WH);
     }
     return map;
   }
@@ -1531,18 +1525,13 @@ class Essay extends DataClass implements Insertable<Essay> {
       content: content == null && nullToAbsent
           ? const Value.absent()
           : Value(content),
-      background: background == null && nullToAbsent
-          ? const Value.absent()
-          : Value(background),
       picture: picture == null && nullToAbsent
           ? const Value.absent()
           : Value(picture),
       affair:
           affair == null && nullToAbsent ? const Value.absent() : Value(affair),
-      goal: goal == null && nullToAbsent ? const Value.absent() : Value(goal),
-      isDraft: isDraft == null && nullToAbsent
-          ? const Value.absent()
-          : Value(isDraft),
+      time: time == null && nullToAbsent ? const Value.absent() : Value(time),
+      WH: WH == null && nullToAbsent ? const Value.absent() : Value(WH),
     );
   }
 
@@ -1553,11 +1542,10 @@ class Essay extends DataClass implements Insertable<Essay> {
       id: serializer.fromJson<int>(json['id']),
       title: serializer.fromJson<String>(json['title']),
       content: serializer.fromJson<String>(json['content']),
-      background: serializer.fromJson<int>(json['background']),
       picture: serializer.fromJson<String>(json['picture']),
-      affair: serializer.fromJson<String>(json['affair']),
-      goal: serializer.fromJson<String>(json['goal']),
-      isDraft: serializer.fromJson<int>(json['isDraft']),
+      affair: serializer.fromJson<int>(json['affair']),
+      time: serializer.fromJson<DateTime>(json['time']),
+      WH: serializer.fromJson<double>(json['WH']),
     );
   }
   @override
@@ -1567,11 +1555,10 @@ class Essay extends DataClass implements Insertable<Essay> {
       'id': serializer.toJson<int>(id),
       'title': serializer.toJson<String>(title),
       'content': serializer.toJson<String>(content),
-      'background': serializer.toJson<int>(background),
       'picture': serializer.toJson<String>(picture),
-      'affair': serializer.toJson<String>(affair),
-      'goal': serializer.toJson<String>(goal),
-      'isDraft': serializer.toJson<int>(isDraft),
+      'affair': serializer.toJson<int>(affair),
+      'time': serializer.toJson<DateTime>(time),
+      'WH': serializer.toJson<double>(WH),
     };
   }
 
@@ -1579,20 +1566,18 @@ class Essay extends DataClass implements Insertable<Essay> {
           {int id,
           String title,
           String content,
-          int background,
           String picture,
-          String affair,
-          String goal,
-          int isDraft}) =>
+          int affair,
+          DateTime time,
+          double WH}) =>
       Essay(
         id: id ?? this.id,
         title: title ?? this.title,
         content: content ?? this.content,
-        background: background ?? this.background,
         picture: picture ?? this.picture,
         affair: affair ?? this.affair,
-        goal: goal ?? this.goal,
-        isDraft: isDraft ?? this.isDraft,
+        time: time ?? this.time,
+        WH: WH ?? this.WH,
       );
   @override
   String toString() {
@@ -1600,11 +1585,10 @@ class Essay extends DataClass implements Insertable<Essay> {
           ..write('id: $id, ')
           ..write('title: $title, ')
           ..write('content: $content, ')
-          ..write('background: $background, ')
           ..write('picture: $picture, ')
           ..write('affair: $affair, ')
-          ..write('goal: $goal, ')
-          ..write('isDraft: $isDraft')
+          ..write('time: $time, ')
+          ..write('WH: $WH')
           ..write(')'))
         .toString();
   }
@@ -1617,11 +1601,9 @@ class Essay extends DataClass implements Insertable<Essay> {
           $mrjc(
               content.hashCode,
               $mrjc(
-                  background.hashCode,
+                  picture.hashCode,
                   $mrjc(
-                      picture.hashCode,
-                      $mrjc(affair.hashCode,
-                          $mrjc(goal.hashCode, isDraft.hashCode))))))));
+                      affair.hashCode, $mrjc(time.hashCode, WH.hashCode)))))));
   @override
   bool operator ==(dynamic other) =>
       identical(this, other) ||
@@ -1629,67 +1611,60 @@ class Essay extends DataClass implements Insertable<Essay> {
           other.id == this.id &&
           other.title == this.title &&
           other.content == this.content &&
-          other.background == this.background &&
           other.picture == this.picture &&
           other.affair == this.affair &&
-          other.goal == this.goal &&
-          other.isDraft == this.isDraft);
+          other.time == this.time &&
+          other.WH == this.WH);
 }
 
 class EssaysCompanion extends UpdateCompanion<Essay> {
   final Value<int> id;
   final Value<String> title;
   final Value<String> content;
-  final Value<int> background;
   final Value<String> picture;
-  final Value<String> affair;
-  final Value<String> goal;
-  final Value<int> isDraft;
+  final Value<int> affair;
+  final Value<DateTime> time;
+  final Value<double> WH;
   const EssaysCompanion({
     this.id = const Value.absent(),
     this.title = const Value.absent(),
     this.content = const Value.absent(),
-    this.background = const Value.absent(),
     this.picture = const Value.absent(),
     this.affair = const Value.absent(),
-    this.goal = const Value.absent(),
-    this.isDraft = const Value.absent(),
+    this.time = const Value.absent(),
+    this.WH = const Value.absent(),
   });
   EssaysCompanion.insert({
     this.id = const Value.absent(),
     @required String title,
     @required String content,
-    @required int background,
     @required String picture,
-    @required String affair,
-    @required String goal,
-    @required int isDraft,
+    @required int affair,
+    @required DateTime time,
+    @required double WH,
   })  : title = Value(title),
         content = Value(content),
-        background = Value(background),
         picture = Value(picture),
         affair = Value(affair),
-        goal = Value(goal),
-        isDraft = Value(isDraft);
+        time = Value(time),
+        WH = Value(WH);
   static Insertable<Essay> custom({
     Expression<int> id,
     Expression<String> title,
     Expression<String> content,
-    Expression<int> background,
     Expression<String> picture,
-    Expression<String> affair,
-    Expression<String> goal,
-    Expression<int> isDraft,
+    Expression<int> affair,
+    Expression<DateTime> time,
+    Expression<double> WH,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (title != null) 'title': title,
       if (content != null) 'content': content,
-      if (background != null) 'background': background,
       if (picture != null) 'picture': picture,
       if (affair != null) 'affair': affair,
-      if (goal != null) 'goal': goal,
-      if (isDraft != null) 'is_draft': isDraft,
+      if (time != null) 'time': time,
+      if (WH != null) 'wh': WH,
     });
   }
 
@@ -1697,20 +1672,18 @@ class EssaysCompanion extends UpdateCompanion<Essay> {
       {Value<int> id,
       Value<String> title,
       Value<String> content,
-      Value<int> background,
       Value<String> picture,
-      Value<String> affair,
-      Value<String> goal,
-      Value<int> isDraft}) {
+      Value<int> affair,
+      Value<DateTime> time,
+      Value<double> WH}) {
     return EssaysCompanion(
       id: id ?? this.id,
       title: title ?? this.title,
       content: content ?? this.content,
-      background: background ?? this.background,
       picture: picture ?? this.picture,
       affair: affair ?? this.affair,
-      goal: goal ?? this.goal,
-      isDraft: isDraft ?? this.isDraft,
+      time: time ?? this.time,
+      WH: WH ?? this.WH,
     );
   }
 
@@ -1726,20 +1699,17 @@ class EssaysCompanion extends UpdateCompanion<Essay> {
     if (content.present) {
       map['content'] = Variable<String>(content.value);
     }
-    if (background.present) {
-      map['background'] = Variable<int>(background.value);
-    }
     if (picture.present) {
       map['picture'] = Variable<String>(picture.value);
     }
     if (affair.present) {
-      map['affair'] = Variable<String>(affair.value);
+      map['affair'] = Variable<int>(affair.value);
     }
-    if (goal.present) {
-      map['goal'] = Variable<String>(goal.value);
+    if (time.present) {
+      map['time'] = Variable<DateTime>(time.value);
     }
-    if (isDraft.present) {
-      map['is_draft'] = Variable<int>(isDraft.value);
+    if (WH.present) {
+      map['wh'] = Variable<double>(WH.value);
     }
     return map;
   }
@@ -1750,11 +1720,10 @@ class EssaysCompanion extends UpdateCompanion<Essay> {
           ..write('id: $id, ')
           ..write('title: $title, ')
           ..write('content: $content, ')
-          ..write('background: $background, ')
           ..write('picture: $picture, ')
           ..write('affair: $affair, ')
-          ..write('goal: $goal, ')
-          ..write('isDraft: $isDraft')
+          ..write('time: $time, ')
+          ..write('WH: $WH')
           ..write(')'))
         .toString();
   }
@@ -1797,18 +1766,6 @@ class $EssaysTable extends Essays with TableInfo<$EssaysTable, Essay> {
     );
   }
 
-  final VerificationMeta _backgroundMeta = const VerificationMeta('background');
-  GeneratedIntColumn _background;
-  @override
-  GeneratedIntColumn get background => _background ??= _constructBackground();
-  GeneratedIntColumn _constructBackground() {
-    return GeneratedIntColumn(
-      'background',
-      $tableName,
-      false,
-    );
-  }
-
   final VerificationMeta _pictureMeta = const VerificationMeta('picture');
   GeneratedTextColumn _picture;
   @override
@@ -1822,36 +1779,36 @@ class $EssaysTable extends Essays with TableInfo<$EssaysTable, Essay> {
   }
 
   final VerificationMeta _affairMeta = const VerificationMeta('affair');
-  GeneratedTextColumn _affair;
+  GeneratedIntColumn _affair;
   @override
-  GeneratedTextColumn get affair => _affair ??= _constructAffair();
-  GeneratedTextColumn _constructAffair() {
-    return GeneratedTextColumn(
+  GeneratedIntColumn get affair => _affair ??= _constructAffair();
+  GeneratedIntColumn _constructAffair() {
+    return GeneratedIntColumn(
       'affair',
       $tableName,
       false,
     );
   }
 
-  final VerificationMeta _goalMeta = const VerificationMeta('goal');
-  GeneratedTextColumn _goal;
+  final VerificationMeta _timeMeta = const VerificationMeta('time');
+  GeneratedDateTimeColumn _time;
   @override
-  GeneratedTextColumn get goal => _goal ??= _constructGoal();
-  GeneratedTextColumn _constructGoal() {
-    return GeneratedTextColumn(
-      'goal',
+  GeneratedDateTimeColumn get time => _time ??= _constructTime();
+  GeneratedDateTimeColumn _constructTime() {
+    return GeneratedDateTimeColumn(
+      'time',
       $tableName,
       false,
     );
   }
 
-  final VerificationMeta _isDraftMeta = const VerificationMeta('isDraft');
-  GeneratedIntColumn _isDraft;
+  final VerificationMeta _WHMeta = const VerificationMeta('WH');
+  GeneratedRealColumn _WH;
   @override
-  GeneratedIntColumn get isDraft => _isDraft ??= _constructIsDraft();
-  GeneratedIntColumn _constructIsDraft() {
-    return GeneratedIntColumn(
-      'is_draft',
+  GeneratedRealColumn get WH => _WH ??= _constructWh();
+  GeneratedRealColumn _constructWh() {
+    return GeneratedRealColumn(
+      'wh',
       $tableName,
       false,
     );
@@ -1859,7 +1816,7 @@ class $EssaysTable extends Essays with TableInfo<$EssaysTable, Essay> {
 
   @override
   List<GeneratedColumn> get $columns =>
-      [id, title, content, background, picture, affair, goal, isDraft];
+      [id, title, content, picture, affair, time, WH];
   @override
   $EssaysTable get asDslTable => this;
   @override
@@ -1886,14 +1843,6 @@ class $EssaysTable extends Essays with TableInfo<$EssaysTable, Essay> {
     } else if (isInserting) {
       context.missing(_contentMeta);
     }
-    if (data.containsKey('background')) {
-      context.handle(
-          _backgroundMeta,
-          background.isAcceptableOrUnknown(
-              data['background'], _backgroundMeta));
-    } else if (isInserting) {
-      context.missing(_backgroundMeta);
-    }
     if (data.containsKey('picture')) {
       context.handle(_pictureMeta,
           picture.isAcceptableOrUnknown(data['picture'], _pictureMeta));
@@ -1906,17 +1855,16 @@ class $EssaysTable extends Essays with TableInfo<$EssaysTable, Essay> {
     } else if (isInserting) {
       context.missing(_affairMeta);
     }
-    if (data.containsKey('goal')) {
+    if (data.containsKey('time')) {
       context.handle(
-          _goalMeta, goal.isAcceptableOrUnknown(data['goal'], _goalMeta));
+          _timeMeta, time.isAcceptableOrUnknown(data['time'], _timeMeta));
     } else if (isInserting) {
-      context.missing(_goalMeta);
+      context.missing(_timeMeta);
     }
-    if (data.containsKey('is_draft')) {
-      context.handle(_isDraftMeta,
-          isDraft.isAcceptableOrUnknown(data['is_draft'], _isDraftMeta));
+    if (data.containsKey('wh')) {
+      context.handle(_WHMeta, WH.isAcceptableOrUnknown(data['wh'], _WHMeta));
     } else if (isInserting) {
-      context.missing(_isDraftMeta);
+      context.missing(_WHMeta);
     }
     return context;
   }

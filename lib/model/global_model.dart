@@ -5,9 +5,11 @@ import 'package:flutter_custom_calendar/flutter_custom_calendar.dart';
 import 'package:moor_flutter/moor_flutter.dart';
 import 'package:track/dao/tables_dao.dart';
 import 'package:track/logic/global_logic.dart';
+import 'package:track/model/essay_page_model.dart';
 import 'package:track/model/main_page_model.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:track/model/new_affair_page_model.dart';
+import 'package:track/model/new_essay_page_model.dart';
 
 
 import 'new_common_affair_page_model.dart';
@@ -30,6 +32,8 @@ class GlobalModel extends ChangeNotifier {
   MainPageModel mainPageModel;
   NewAffairPageModel newAffairPageModel;
   NewCommonAffairPageModel newCommonAffairPageModel;
+  EssayPageModel essayPageModel;
+  NewEssayPageModel newEssayPageModel;
 
   GlobalModel() {
     logic = GlobalLogic(this);
@@ -65,6 +69,19 @@ class GlobalModel extends ChangeNotifier {
     if(this.newCommonAffairPageModel == null){
       this.newCommonAffairPageModel = newCommonAffairPageModel;
       debugPrint('设置newCommonAffairPageModel');
+    }
+  }
+
+  void setNewEssayPageModel(NewEssayPageModel newEssayPageModel) {
+    if(this.newEssayPageModel == null) {
+      this.newEssayPageModel = newEssayPageModel;
+    }
+  }
+
+  void setEssayPageModel(EssayPageModel essayPageModel) {
+    if(this.essayPageModel == null){
+      this.essayPageModel = essayPageModel;
+      debugPrint('设置EssayPageModel');
     }
   }
 
