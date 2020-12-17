@@ -32,7 +32,7 @@ provider, intl, sqflite, flutter_custom_calendar
 
 ## 注意事项
 
-最晚9月底。
+
 
 编码一定要用UTF-8。
 
@@ -42,8 +42,6 @@ provider, intl, sqflite, flutter_custom_calendar
 
 git commit -m “这里面写好备注”
 
-感觉有不对的地方赶紧跟我说，我也才学几天。
 
-不要把代码发到网上（我怕丢人）。
 
 ## ToDo
